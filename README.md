@@ -56,6 +56,17 @@ Open [http://localhost:3000](http://localhost:3000)
 - Component persistence for registered users
 - Export generated code
 
+## Local Development Findings
+
+Observations from running the project locally:
+
+- **No API key required** — with `ANTHROPIC_API_KEY=""` (empty) in `.env`, the app falls back to `MockLanguageModel` and returns static demo components (Counter, ContactForm, Card). The app is fully functional without a real key.
+- **Dev server startup** — `npm run dev` uses Turbopack (`next dev --turbopack`) wrapped with `NODE_OPTIONS='--require ./node-compat.cjs'` for Node.js compatibility. Server is ready in ~2–3 seconds.
+- **Pre-built state** — after `npm run setup`, the project is ready to run immediately: `node_modules/` are installed, `src/generated/prisma/` client is generated, and `prisma/dev.db` has all 4 migrations applied.
+- **Anonymous usage works** — no sign-up needed; users can generate components without an account.
+- **Gallery feature** — click the **Gallery** button to open the component sidebar. It shows previously generated components; it will be empty on a fresh database.
+- **Network access** — the server binds to all interfaces (`0.0.0.0`), so it is reachable on the local network at the host's IP on port 3000.
+
 ## Tech Stack
 
 - Next.js 15 with App Router
